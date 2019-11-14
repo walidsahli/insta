@@ -1,0 +1,8 @@
+export const instagram = require('../assets/insta.svg')
+export const profileImage = require('../assets/profile.png')
+export const facebook = require('../assets/facebook.png')
+export const homeLogo = require('../assets/home.png')
+export const cameraLogo = require('../assets/pic.png')
+export const sendLogo = require('../assets/send.png')
+export const plusLogo = require('../assets/plus.png')
+export const profilePicture = require('../assets/profilePicture.jpg')

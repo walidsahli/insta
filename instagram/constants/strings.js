@@ -1,0 +1,18 @@
+export const welcomeScreen = 'Instagram from Facebook'
+export const createAccountBtnText = 'Create New Account'
+export const logInBtnText = 'Log In'
+export const Phone = 'PHONE'
+export const Email = 'EMAIL'
+export const haveAccountFooter = 'Already have an account?'
+export const phoneCode = 'TN +216'
+export const phoneText = 'You may receive SMS updates from Instagram and can opt out at any time'
+export const Next = 'Next'
+export const NewAccount = 'NewAccount'
+export const Login = 'Login'
+export const forgotLogin = 'Forgot your login details?'
+export const getHelp = 'Get help signing in'
+export const fbLogin = 'Log in with facebook'
+export const dontHaveAccount = "Don't have an account? Sign up"
+export const MessagesScreen = 'MessagesScreen'
+export const CameraScreen = 'CameraScreen'
+

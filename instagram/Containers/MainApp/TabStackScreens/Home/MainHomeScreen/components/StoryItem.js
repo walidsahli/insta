@@ -1,28 +1,21 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { profileImage, plusLogo, profilePicture } from '../../../../../../constants/images'
-import StoryPlayer from './StoryPlayer'
 
 const StoryItem = props => {
-    ////////////////////////// Play Story /////////////////////
-    const [Play, setPlay] = useState(false)
-    ///////////////////////// Stop Story //////////////////////
-    const PlayStopStory = () => {
-        setPlay(!Play)
-    }
+
 
     return (
         <View style={styles.container}>
             <TouchableOpacity
                 style={styles.imageContainer}
                 activeOpacity={0.8}
-                onPress={PlayStopStory}
+                onPress={() => props.toggleStory(props.item)}
             >
                 <Image source={profilePicture} style={styles.image} />
             </TouchableOpacity>
             <Image source={plusLogo} style={styles.plus} />
             <Text style={styles.name}>Your Story</Text>
-            <StoryPlayer Played={Play} StopStory={PlayStopStory} />
         </View>
     )
 }

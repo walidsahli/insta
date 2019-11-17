@@ -22,8 +22,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: 'row',
         alignItems: 'center',
-        borderBottomColor: 'grey',
-        borderBottomWidth: 0.4
     },
     Icon:{
         alignItems: 'center',

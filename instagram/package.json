@@ -7,9 +7,12 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "go": "react-native run-android && react-native start",
+    "save": "sudo git add . && sudo git commit -m 'save' && sudo git push"
   },
   "dependencies": {
+    "@react-native-community/cameraroll": "^1.3.0",
     "prop-types": "^15.7.2",
     "react": "16.9.0",
     "react-native": "0.61.3",

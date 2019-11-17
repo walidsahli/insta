@@ -25,7 +25,9 @@ const styles = StyleSheet.create({
     },
     header : {
         flex : 1,
-        width : '100%'
+        width : '100%',
+        borderBottomColor: 'grey',
+        borderBottomWidth: 0.4
     },
     content : {
         flex : 12,

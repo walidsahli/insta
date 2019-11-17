@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import PostHeader from './PostHeader'
 import PostContent from './PostContent'
 import LikeCommentBar from './LikeCommentBar'
+import DescriptionSeecomments from './DescriptionSeecomments'
 
 const Post = ({postDate}) => {
     
@@ -11,6 +12,7 @@ const Post = ({postDate}) => {
             <PostHeader />
             <PostContent image={postDate.image} />
             <LikeCommentBar />
+            <DescriptionSeecomments />
         </View>
     )
 }

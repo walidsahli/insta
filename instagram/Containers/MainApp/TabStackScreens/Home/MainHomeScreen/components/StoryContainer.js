@@ -1,20 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import StoryItem from './StoryItem'
+import StoryPlayer from './StoryPlayer'
 
 const StoryContainer = () => {
-    const a = [1,2,3,4,5,6]
+    const a = [{ media : require('../../../../../../assets/post.jpeg') , id : 0} ]
+    const [Play, setPlay] = useState(false)
+    const [StoryData, setStoryData] = useState({media : null, id: null})
+
+    const toggleStory = data => {
+        setPlay(!Play)
+        setStoryData(data)
+    }
 
     return (
-        <View style={styles.container}
-        >
+        <View style={styles.container}>
             <FlatList
                 data={a}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => <StoryItem /> }
+                renderItem={({ item }) => <StoryItem toggleStory={toggleStory} item={item} />}
                 keyExtractor={item => `${item}`}
             />
+            <StoryPlayer Played={Play} StopStory={toggleStory} StoryData={StoryData} />
         </View>
     )
 }

@@ -4,13 +4,14 @@ import Icon from 'react-native-vector-icons/Feather'
 import { withNavigation } from 'react-navigation'
 
 
+
 const TabNavigatorComponent = ({ navigation }) => {
 
     const [Active, setActive] = useState('Home')
 
     const Goto = (routeName) => {
         navigation.navigate(routeName)
-        setActive(routeName)
+        if(routeName != 'GalleryScreen' ) setActive(routeName)
     }
 
     return (

@@ -23,6 +23,7 @@ const StoryContainer = () => {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => <StoryItem toggleStory={toggleStory} item={item} />}
+                windowSize={8}
                 keyExtractor={item => `${item}`}
             />
             <Suspense fallback={<Text>Error</Text>}>

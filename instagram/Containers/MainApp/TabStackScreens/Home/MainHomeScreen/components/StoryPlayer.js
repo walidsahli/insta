@@ -108,10 +108,11 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         height: 50,
         margin: 10,
-        borderColor: 'white'
+        borderColor: 'white',
+        justifyContent:'center'
     },
     input: {
-        marginLeft: 10
+        marginLeft: 10,
     },
     sendLogo: {
         height: 40,

@@ -1,16 +1,16 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import PostHeader from './PostHeader'
 import PostContent from './PostContent'
 import LikeCommentBar from './LikeCommentBar'
 import DescriptionSeecomments from './DescriptionSeecomments'
 
-const Post = ({postDate}) => {
+const Post = (props) => {
     
     return (
         <View style={styles.container}>
             <PostHeader />
-            <PostContent image={postDate.image} />
+            <PostContent data={props.postData} />
             <LikeCommentBar />
             <DescriptionSeecomments />
         </View>

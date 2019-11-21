@@ -1,54 +1,46 @@
-import React, { useEffect, useState } from 'react'
-import { View, Keyboard, Modal, StyleSheet, ImageBackground, TextInput, TouchableOpacity, Image } from 'react-native'
+import React, { useEffect, useState, useRef } from 'react'
+import { View, Keyboard, Modal, StyleSheet, ImageBackground, TextInput, TouchableOpacity, Image, Animated, Easing } from 'react-native'
 import { sendLogo } from '../../../../../../constants/images'
-import * as Progress from 'react-native-progress';
+import Video from 'react-native-video';
+
 
 
 const StoryPlayer = ({ Played, StopStory, StoryData }) => {
 
+    const VideoPlayer = useRef(null)
+    const progressBar = new Animated.Value(0)
+
     const SendMessage = () => {
+        console.log('ok')
         //// send message then ->
-        StopStory({ media: null, id: null })
+        Stop()
     }
 
-    const [Blur, setBlur] = useState(0)
-    const [ProgressStatus, setProgressStatus] = useState(0)
-    var Timer = null ;
+    const Stop = () => {
+        StopStory({ media: null, id: null, type: null })
+    }
+
     useEffect(() => {
-        if (Played) {
-            setProgressStatus(0)
-            var keyboardDidShowListener = Keyboard.addListener(
-                'keyboardDidShow',
-                _keyboardDidShow,
-            );
-            var keyboardDidHideListener = Keyboard.addListener(
-                'keyboardDidHide',
-                _keyboardDidHide,
-            );
-            Timer = setInterval(progress, 10)
+        if (Played && StoryData.type == 'image') {
+            progressBar.setValue(0)
+            Animated.timing(progressBar, {
+                toValue: 1,
+                duration: 5000
+            }).start(() => Stop())
             return () => {
-                keyboardDidShowListener.remove()
-                keyboardDidHideListener.remove()
-                clearInterval(Timer)
             };
         }
     }, [Played])
 
-    var _keyboardDidShow = () => {
-        setBlur(20)
+
+    const onBuffer = event => {
+        console.log(event)
     }
-    var _keyboardDidHide = () => {
-        setBlur(0)
+
+    const videoError = () => {
+        Stop()
     }
-    var progress = () => {
-        setProgressStatus(prevState => {
-            if(prevState > 1) {
-                StopStory({ media: null, id: null })
-                clearInterval(Timer)
-            }
-            return prevState + 0.001
-        })
-    }
+
 
     return (
         <View>
@@ -56,23 +48,32 @@ const StoryPlayer = ({ Played, StopStory, StoryData }) => {
                 visible={Played}
                 animationType='fade'
             >
-                <ImageBackground
-                    style={styles.container}
-                    source={StoryData.media}
-                    imageStyle={styles.BackImageStyle}
-                    blurRadius={Blur}
-                >
-                    <View
-                        style={styles.progressContainer}
-                    >
-                        <Progress.Bar
-                            progress={ProgressStatus}
-                            width={null}
-                            borderWidth={0}
-                            color='white'
-                            height={2}
+                <View style={styles.container}>
+                    {StoryData.type == 'image' ?
+                        <Image
+                            source={StoryData.media}
+                            style={styles.backgroundMedia}
                         />
-                    </View>
+
+                        :
+                        <Video source={{ uri: StoryData.media }}   // Can be a URL or a local file.
+                            ref={VideoPlayer}                                      // Store reference
+                            onError={videoError}               // Callback when video cannot be loaded
+                            style={styles.backgroundMedia}
+                            resizeMode='contain'
+                            onEnd={Stop}
+                        />
+                    }
+                    {
+                        StoryData.type == 'image' ?
+                            <View
+                                style={styles.progressContainer}
+                            >
+                                <Animated.View style={[styles.ProgressBar, { width: progressBar.interpolate({ inputRange: [0, 1], outputRange: ['0%', '100%'] }) }]} />
+                            </View> :
+                            null
+                    }
+
                     <View style={styles.send}>
                         <View style={styles.textInputStyle}>
                             <TextInput
@@ -89,7 +90,7 @@ const StoryPlayer = ({ Played, StopStory, StoryData }) => {
                             <Image source={sendLogo} style={styles.sendLogo} />
                         </TouchableOpacity>
                     </View>
-                </ImageBackground>
+                </View>
             </Modal>
         </View>
     )
@@ -97,7 +98,9 @@ const StoryPlayer = ({ Played, StopStory, StoryData }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'grey',
+        opacity: 1
     },
     textInputStyle: {
         borderWidth: 1.8,
@@ -120,7 +123,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        bottom: 0
+        bottom: 0,
+        zIndex: 2
     },
     BackImageStyle: {
         flex: 1,
@@ -129,9 +133,24 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch'
     },
     progressContainer: {
+        position: 'absolute',
+        top: 10,
+        zIndex: 3,
+        height: 2,
         width: '90%',
-        alignSelf: 'center',
-        marginTop: 15
+        alignSelf: 'center'
+    },
+    backgroundMedia: {
+        width: null,
+        height: null,
+        flex: 1
+    },
+    ProgressBar: {
+        backgroundColor: 'white',
+        width: '0%',
+        left: 0,
+        position: 'absolute',
+        top: 0, zIndex: 5, height: 2, borderRadius: 2
     }
 })
 

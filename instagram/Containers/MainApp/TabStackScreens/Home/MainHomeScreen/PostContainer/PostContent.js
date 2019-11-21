@@ -31,7 +31,7 @@ const PostContent = (props) => {
     )
 }
 const styles = StyleSheet.create({
-    container: {
+    content: {
         flex: 1,
         width: '100%'
     },

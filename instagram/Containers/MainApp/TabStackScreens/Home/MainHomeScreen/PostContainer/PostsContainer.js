@@ -12,12 +12,13 @@ const PostsContainer = () => {
     }
 
     const _onViewableItemsChanged = ({ viewableItems, changed }) => {
-        changed.forEach(item => {
+        var ItemsToPlay = changed.concat(viewableItems)
+        ItemsToPlay.forEach(item => {
             if (VideoRefs[`${item.index}`]) {
                 if (item.isViewable) {
-                    VideoRefs[`${item.index}`].play
+                    VideoRefs[`${item.index}`].play(video)
                 } else {
-                    VideoRefs[`${item.index}`].stop
+                    VideoRefs[`${item.index}`].stop(video)
                 }
             }
         });
@@ -54,5 +55,7 @@ const styles = StyleSheet.create({
     }
 })
 
+const video = 'https://vjs.zencdn.net/v/oceans.mp4'
+
+
 export default React.memo(PostsContainer)
-const video = 'https://d2v9y0dukr6mq2.cloudfront.net/video/preview/GTYSdDW/after-effects-cs5-template-club-opener_71j9vf-H__PM.mp4'

@@ -37,8 +37,9 @@ const StoryPlayer = ({ Played, StopStory, StoryData }) => {
         console.log(event)
     }
 
-    const videoError = () => {
-        Stop()
+    const videoError = err => {
+        console.log(err)
+        // Stop()
     }
 
 

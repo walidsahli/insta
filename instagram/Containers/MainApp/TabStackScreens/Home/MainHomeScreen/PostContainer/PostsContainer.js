@@ -2,6 +2,9 @@ import React, { useRef, useEffect, useState } from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
 import Post from './Post'
 import StoryContainer from '../components/StoryContainer'
+import { profileImage } from '../../../../../../constants/images';
+import PostHeader from './PostHeader';
+import MediaComponent from './MediaComponent';
 
 const PostsContainer = () => {
 
@@ -16,27 +19,26 @@ const PostsContainer = () => {
         ItemsToPlay.forEach(item => {
             if (VideoRefs[`${item.index}`]) {
                 if (item.isViewable) {
-                    VideoRefs[`${item.index}`].play(video)
+                    VideoRefs[`${item.index}`].set(<MediaComponent media={video} type='video' item={item.index} />)
                 } else {
-                    VideoRefs[`${item.index}`].stop(video)
+                    VideoRefs[`${item.index}`].remove()
                 }
             }
         });
     }
-
-
-
-    const renderItem = ({ item, index }) => index == 0 ? <StoryContainer /> : <Post index={index} addRefs={addRefs} postData={{ media: video, type: 'video' }} />
+    const _keyExtractor = (item) => `${item}`
+    const _getItemLayout = (item, index) => ({ length: 550, offset: 550 * index, index })
+    const _renderItem = ({ item, index }) => index == 0 ? <StoryContainer /> : <Post index={index} addRefs={addRefs} />
     return (
         <View style={styles.container}>
             <FlatList
                 data={a}
-                renderItem={renderItem}
-                keyExtractor={(item) => `${item}`}
+                renderItem={_renderItem}
+                keyExtractor={_keyExtractor}
                 showsVerticalScrollIndicator={false}
-                initialNumToRender={2}
                 style={{ width: '100%', height: 600 }}
-                onViewableItemsChanged={_onViewableItemsChanged}
+                onViewableItemsChanged={_onViewableItemsChanged}     
+                getItemLayout={_getItemLayout}
             />
         </View>
     )

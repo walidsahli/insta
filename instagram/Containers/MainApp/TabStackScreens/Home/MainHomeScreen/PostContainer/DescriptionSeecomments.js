@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DescriptionSeecomments
+export default React.memo(DescriptionSeecomments)

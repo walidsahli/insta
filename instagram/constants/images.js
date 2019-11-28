@@ -1,4 +1,4 @@
-export const instagram = require('../assets/insta.svg')
+export const instagram = require('../assets/instagram.png')
 export const profileImage = require('../assets/profile.png')
 export const facebook = require('../assets/facebook.png')
 export const homeLogo = require('../assets/home.png')

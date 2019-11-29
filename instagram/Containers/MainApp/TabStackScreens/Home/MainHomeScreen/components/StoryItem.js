@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { profileImage, plusLogo, profilePicture } from '../../../../../../constants/images'
+import { withNavigation } from 'react-navigation';
 
 const StoryItem = props => {
 
 
+    const _toggleStory = () => props.item==null ? props.navigation.navigate('CameraScreen') : props.toggleStory(props.item)
     return (
         <View style={styles.container}>
             <TouchableOpacity
                 style={styles.imageContainer}
                 activeOpacity={0.8}
-                onPress={() => props.toggleStory(props.item)}
+                onPress={_toggleStory}
             >
                 <Image source={profilePicture} style={styles.image} />
             </TouchableOpacity>
@@ -60,4 +62,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default React.memo(StoryItem)
+export default withNavigation(React.memo(StoryItem))

@@ -16,19 +16,23 @@ const PostsContainer = () => {
 
     const _onViewableItemsChanged = ({ viewableItems, changed }) => {
         var ItemsToPlay = changed.concat(viewableItems)
+        console.log(ItemsToPlay)
         ItemsToPlay.forEach(item => {
             if (VideoRefs[`${item.index}`]) {
                 if (item.isViewable) {
+                    item.index > 2 ? VideoRefs[`${item.index - 2 }`].remove() : null
+                    item.index > 1 ? VideoRefs[`${item.index - 1 }`].set(<MediaComponent media={video} type='video' item={item.index - 1 } />) : null
                     VideoRefs[`${item.index}`].set(<MediaComponent media={video} type='video' item={item.index} />)
-                } else {
-                    VideoRefs[`${item.index}`].remove()
+                    item.index < a.length - 1 ? VideoRefs[`${item.index + 1 }`].set(<MediaComponent media={video} type='video' item={item.index + 1 } />) : null 
+                    item.index < a.length - 2 ? VideoRefs[`${item.index + 2 }`].remove() : null 
                 }
             }
         });
     }
     const _keyExtractor = (item) => `${item}`
     const _getItemLayout = (item, index) => ({ length: 550, offset: 550 * index, index })
-    const _renderItem = ({ item, index }) => index == 0 ? <StoryContainer /> : <Post index={index} addRefs={addRefs} />
+    const _renderItem = ({ item, index }) => <Post index={index} addRefs={addRefs} />
+    const _ListHeaderComponent  = () => <StoryContainer /> 
     return (
         <View style={styles.container}>
             <FlatList
@@ -39,6 +43,7 @@ const PostsContainer = () => {
                 style={{ width: '100%', height: 600 }}
                 onViewableItemsChanged={_onViewableItemsChanged}     
                 getItemLayout={_getItemLayout}
+                ListHeaderComponent ={_ListHeaderComponent}
             />
         </View>
     )

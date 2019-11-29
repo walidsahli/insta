@@ -16,6 +16,8 @@ const StoryContainer = () => {
         setStoryData(data)
     }
 
+    const _ListHeaderComponent = () => <StoryItem toggleStory={toggleStory} item={null} />
+
     return (
         <View style={styles.container}>
             <FlatList
@@ -25,6 +27,7 @@ const StoryContainer = () => {
                 renderItem={({ item }) => <StoryItem toggleStory={toggleStory} item={item} />}
                 windowSize={8}
                 keyExtractor={item => `${item}`}
+                ListHeaderComponent={_ListHeaderComponent}
             />
             <Suspense fallback={<Text>Error</Text>}>
                 <StoryPlayer Played={Play} StopStory={toggleStory} StoryData={StoryData} />

@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, Dimensions } from 'react-native'
 import { profileImage } from '../../../../../../constants/images';
 import Video from 'react-native-video'
 
-const MediaComponent = ({ media, type , item }) => {
+const MediaComponent = ({ media, type, item }) => {
     const VideoPlayer = useRef(null)
     const [Pause, setPause] = useState(false)
     const [Loaded, setLoaded] = useState(false)
@@ -13,6 +13,8 @@ const MediaComponent = ({ media, type , item }) => {
     const onLoad = loadData => {
         setLoaded(loadData.canPlaySlowForward)
     }
+
+    const t = item % 2 == 0 ? 'video' : 'image'
 
     const onBuffer = buffer => {
         console.log(buffer, 'buffer')
@@ -29,13 +31,13 @@ const MediaComponent = ({ media, type , item }) => {
     }
 
     useEffect(() => {
-        console.log( 'mount' , item)
+        console.log('mount', item)
         return () => {
-            console.log('died' , item)
+            console.log('died', item)
         };
     }, [])
 
-    if (type == 'video')
+    if (t == 'video')
         return (
             <Video
                 source={{ uri: media }}   // Can be a URL or a local file.
@@ -48,18 +50,12 @@ const MediaComponent = ({ media, type , item }) => {
                 onBuffer={onBuffer}
                 onLoad={onLoad}
                 onEnd={onEnd}
-                onVideoBuffer={onBuffer}
-                bufferConfig={{
-                    minBufferMs: 1000,
-                    maxBufferMs: 2000,
-                    bufferForPlaybackMs: 1000,
-                    bufferForPlaybackAfterRebufferMs: 2000
-                }} />
+                onVideoBuffer={onBuffer}/>
         )
     else
         return (
-            <View style={{flex: 1 , backgroundColor: 'red'}}>
-            <Image source={profileImage} style={{ width: null, height: null, flex: 1 }} resizeMode='contain' />
+            <View style={{ flex: 1}}>
+                <Image source={{ uri: img }} style={{ width: Dimensions.get('window').width, height: 500, flex: 1}} resizeMode='contain' />
             </View>
         )
 }
@@ -72,3 +68,5 @@ const styles = StyleSheet.create({
         height: '100%'
     }
 })
+
+const img = "https://i.dailymail.co.uk/1s/2019/04/18/10/12427172-0-image-a-20_1555581069374.jpg"

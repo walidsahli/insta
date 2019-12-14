@@ -3,7 +3,6 @@ import { View, StyleSheet, Dimensions, Image, ActivityIndicator, Text } from 're
 import PostHeader from './PostHeader'
 import LikeCommentBar from './LikeCommentBar'
 import DescriptionSeecomments from './DescriptionSeecomments'
-import Video from 'react-native-video'
 
 const Post = (props) => {
 

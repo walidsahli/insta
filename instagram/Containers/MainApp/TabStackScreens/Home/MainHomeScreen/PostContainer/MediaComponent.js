@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native'
 import { profileImage } from '../../../../../../constants/images';
-import Video from 'react-native-video'
 
 const MediaComponent = ({ media, type, item }) => {
     const VideoPlayer = useRef(null)
@@ -37,7 +36,8 @@ const MediaComponent = ({ media, type, item }) => {
         };
     }, [])
 
-    if (t == 'video')
+    if (t == 'video') {
+        var Video = require('react-native-video').default
         return (
             <Video
                 source={{ uri: media }}   // Can be a URL or a local file.
@@ -50,12 +50,13 @@ const MediaComponent = ({ media, type, item }) => {
                 onBuffer={onBuffer}
                 onLoad={onLoad}
                 onEnd={onEnd}
-                onVideoBuffer={onBuffer}/>
+                onVideoBuffer={onBuffer} />
         )
+    }
     else
         return (
-            <View style={{ flex: 1}}>
-                <Image source={{ uri: img }} style={{ width: Dimensions.get('window').width, height: 500, flex: 1}} resizeMode='contain' />
+            <View style={{ flex: 1 }}>
+                <Image source={{ uri: img }} style={{ width: Dimensions.get('window').width, height: 500, flex: 1 }} resizeMode='contain' />
             </View>
         )
 }

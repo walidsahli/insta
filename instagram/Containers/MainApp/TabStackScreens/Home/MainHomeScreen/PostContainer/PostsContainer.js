@@ -2,9 +2,6 @@ import React, { useRef, useEffect, useState } from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
 import Post from './Post'
 import StoryContainer from '../components/StoryContainer'
-import { profileImage } from '../../../../../../constants/images';
-import PostHeader from './PostHeader';
-import MediaComponent from './MediaComponent';
 
 const PostsContainer = () => {
 
@@ -16,8 +13,8 @@ const PostsContainer = () => {
 
     const _onViewableItemsChanged = ({ viewableItems, changed }) => {
         var ItemsToPlay = changed.concat(viewableItems)
-        console.log(ItemsToPlay)
         ItemsToPlay.forEach(item => {
+            var MediaComponent = require('./MediaComponent').default
             if (VideoRefs[`${item.index}`]) {
                 if (item.isViewable) {
                     item.index > 2 ? VideoRefs[`${item.index - 2 }`].remove() : null
